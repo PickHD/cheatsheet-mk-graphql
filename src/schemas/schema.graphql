@@ -1,0 +1,79 @@
+type Query{
+	info : String!
+	getMKs : [Mk]!
+	getMoves : [Move]!
+}
+
+type Mutation {
+
+	register(fullname: String!,email: String!,password: String!) : User!
+	
+	login(email: String!,password:String!) : AuthPayload!
+	
+	createMk(title:String!,developer:String!,publisher:String!,releases:String!,platforms:[String!]!,story:String!) : Mk!
+	createSecret(mkId:ID!,platforms:[String!]!,title:String!,desc:String!):Secret!
+	createChar(mkId:ID!,name_char:String!,img_char_link:String!) : Character!
+	createMove(charId:ID!,spec_moves:[String!],fin_moves:[String],combos:[String],morphs:[String]) : Move!
+	
+	updateMk(id:ID!,title:String,developer:String,publisher:String,releases:String,platforms:[String],story:String) : String!
+	updateSecret(id:ID!,mkId:ID!,platforms:[String],title:String,desc:String):String!
+	updateChar(id:ID!,mkId:ID!,name_char:String,img_char_link:String) :String!
+	updateMove(id:ID!,charId:ID!,spec_moves:[String],fin_moves:[String],combos:[String],morphs:[String]) : String!
+	
+	
+	deleteMk(id:ID!):String!
+	deleteSecret(id:ID!):String!
+	deleteChar(id:ID!):String!
+	deleteMove(id:ID!):String!
+
+}
+
+
+type User {
+	id : ID!
+	fullname : String!
+	email : String!
+	password : String!
+}
+
+type Mk {
+	id : ID!
+	title : String!
+	developer : String!
+	publisher : String!
+	releases : String!
+	platforms : [String]!
+	story : String!
+	characters : [Character]
+	secrets : [Secret]
+}
+
+type Secret {
+	id : ID!
+	mk_id: Mk!
+	platforms : [String]!
+	title : String!
+	desc :String!
+}
+
+type Character {
+	id : ID!
+	name_char : String!
+	img_char_link : String!
+	mk_id : Mk!
+	moves: [Move]
+}
+
+type Move {
+	id: ID!
+	char_id : Character!
+	spec_moves :[String!]
+	fin_moves : [String!]
+	combos : [String]
+	morphs : [String]
+}
+
+type AuthPayload{
+	token : String
+	user : User
+}

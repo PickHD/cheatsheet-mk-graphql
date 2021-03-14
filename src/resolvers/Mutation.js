@@ -147,7 +147,7 @@ const updateMk = async (parent, args, context) => {
 			const { id, platforms } = args
 
 			await context.prisma.mk.update({
-				where: { id: id },
+				where: { id: parseInt(id) },
 				data: {
 					title: args.title,
 					developer: args.developer,
@@ -171,9 +171,9 @@ const updateSecret = async (parent, args, context) => {
 			const { id, platforms } = args
 
 			await context.prisma.secret.update({
-				where: { id: id },
+				where: { id: parseInt(id) },
 				data: {
-					mk_id: args.mkId,
+					mk_id: parseInt(args.mkId),
 					title: args.title,
 					desc: args.desc,
 					platforms: { set: [...platforms] }
@@ -195,9 +195,9 @@ const updateChar = async (parent, args, context) => {
 			const { id } = args
 
 			await context.prisma.character.update({
-				where: { id: id },
+				where: { id: parseInt(id) },
 				data: {
-					mk_id: args.mkId,
+					mk_id: parseInt(args.mkId),
 					name_char: args.name_char,
 					img_char_link: args.img_char_link
 				}
@@ -218,9 +218,9 @@ const updateMove = async (parent, args, context) => {
 			const { id, spec_moves, fin_moves, combos, morphs } = args
 
 			await context.prisma.move.update({
-				where: { id: id },
+				where: { id: parseInt(id) },
 				data: {
-					char_id: args.charId,
+					char_id: parseInt(args.charId),
 					spec_moves: { set: [...spec_moves] },
 					fin_moves: { set: [...fin_moves] },
 					combos: { set: [...combos] },
@@ -245,7 +245,7 @@ const deleteMk = async (parent, args, context) => {
 		} else {
 			const { id } = args
 
-			await context.prisma.mk.delete({ where: { id: id } })
+			await context.prisma.mk.delete({ where: { id: parseInt(id) } })
 
 			return "Delete MK Successfully!"
 		}
@@ -261,7 +261,7 @@ const deleteSecret = async (parent, args, context) => {
 		} else {
 			const { id } = args
 
-			await context.prisma.secret.delete({ where: { id: id } })
+			await context.prisma.secret.delete({ where: { id: parseInt(id) } })
 
 			return "Delete Secret Successfully!"
 		}
@@ -277,7 +277,7 @@ const deleteChar = async (parent, args, context) => {
 		} else {
 			const { id } = args
 
-			await context.prisma.character.delete({ where: { id: id } })
+			await context.prisma.character.delete({ where: { id: parseInt(id) } })
 
 			return "Delete Character Successfully!"
 		}
@@ -292,7 +292,7 @@ const deleteMove = async (parent, args, context) => {
 		} else {
 			const { id } = args
 
-			await context.prisma.move.delete({ where: { id: id } })
+			await context.prisma.move.delete({ where: { id: parseInt(id) } })
 
 			return "Delete Move Successfully!"
 		}

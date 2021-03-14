@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+
+model User {
+  id          String      @id @default(uuid())
+  fullname    String
+  email       String   @unique
+  password    String
+  roles       Role     @default(GUEST)
+  createdAt   DateTime @default(now())
+}
+
+model Mk { 
+  id               Int      @id @default(autoincrement())
+  title            String   @unique
+  developer        String
+  publisher        String
+  releases         String
+  platforms        String[]
+  story            String
+  characters       Character[]
+  secrets          Secret[]
+}
+
+model Secret {
+  id          Int     @id @default(autoincrement())
+  platforms   String[]
+  title       String
+  desc        String
+  mk          Mk      @relation(fields:[mk_id],references:[id])
+  mk_id       Int   
+}
+
+model Character {
+  id             Int    @id @default(autoincrement())
+  name_char      String
+  img_char_link  String
+  mk             Mk     @relation(fields:[mk_id],references:[id])
+  mk_id          Int
+  moves          Move[]
+}
+
+model Move {
+  id          Int        @id @default(autoincrement())
+  char        Character  @relation(fields:[char_id],references:[id])
+  char_id     Int
+  spec_moves  Json[]
+  fin_moves   Json[]
+  combos      Json[]
+  morphs      Json[]
+}
+
+enum Role {
+  GUEST
+  ADMIN
+}

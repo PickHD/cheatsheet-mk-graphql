@@ -6,7 +6,7 @@ type Query{
 
 type Mutation {
 
-	register(fullname: String!,email: String!,password: String!) : User!
+	register(fullname: String!,email: String!,password: String!,roles:Role) : User!
 	
 	login(email: String!,password:String!) : AuthPayload!
 	
@@ -34,6 +34,7 @@ type User {
 	fullname : String!
 	email : String!
 	password : String!
+	roles : Role
 }
 
 type Mk {
@@ -76,4 +77,9 @@ type Move {
 type AuthPayload{
 	token : String
 	user : User
+}
+
+enum Role {
+	ADMIN
+	GUEST
 }

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon ./server.js",
     "prod": "pm2-runtime start ecosystem.config.js --env production",
-    "postinstall": "npx prisma migrate prod --name 'production migrate init' --preview-feature",
+    "postinstall": "npx prisma migrate deploy --name 'production migrate init' --preview-feature",
     "lint": "eslint --fix ."
   },
   "keywords": [],

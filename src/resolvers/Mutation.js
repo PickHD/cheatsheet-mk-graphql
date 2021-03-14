@@ -18,7 +18,8 @@ const register = async (parent, args, context) => {
 				data: {
 					fullname: args.fullname,
 					email: args.email,
-					password: hashedPass
+					password: hashedPass,
+					roles: args.roles === undefined ? "" : args.roles
 				}
 			})
 

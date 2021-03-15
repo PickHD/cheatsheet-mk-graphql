@@ -39,7 +39,9 @@ const apolloServer = new ApolloServer({
           ? await getPayLoad(req)
           : null
     }
-  }
+  },
+  introspection: true,
+  playground: true
 })
 
 
